@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const timezoneRule = require("../validators/settings")
 const withValidator = require("../helper/validator")
+require("../config/datastore")
 
 const getTimezones = (req, res) => {
   res.json({ timezones: [] });
