@@ -31,7 +31,7 @@ app.all('/{*any}', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 });
