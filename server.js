@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const settingRoute = require('./routes/setting');
+const workerRoute = require('./routes/worker');
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/settings', settingRoute);
+app.use('/api/', workerRoute);
 
 app.get('/api/health', async (req, res) => {
   res.json({
