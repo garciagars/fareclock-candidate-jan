@@ -12,7 +12,7 @@ module.exports = [
     .custom((end, { req }) => {
       const start = req.body.start;
       if (start && new Date(start) >= new Date(end)) {
-        throw new Error("End parameter must be after start");
+        throw new Error("End must be after start");
       }
       return true;
     }),
