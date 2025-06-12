@@ -1,7 +1,6 @@
 const { body } = require("express-validator");
-const moment = require("moment-timezone")
 
-const timezones = moment.tz.names()
+const timezones = Intl.supportedValuesOf('timeZone')
 
 module.exports = [
   body("timezone")

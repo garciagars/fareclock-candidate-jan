@@ -5,10 +5,9 @@ const {
   saveGlobalTimezone,
   getGlobalTimezone,
 } = require("../datastores/settings");
-const moment = require("moment-timezone");
 
 const getTimezones = (req, res) => {
-  const timezones = moment.tz.names();
+  const timezones = Intl.supportedValuesOf("timeZone");
   res.json({ timezones: timezones });
 };
 
