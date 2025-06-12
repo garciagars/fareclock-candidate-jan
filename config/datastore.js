@@ -1,29 +1,34 @@
-// Imports the Google Cloud client library
-const {Datastore} = require('@google-cloud/datastore');
+const { Datastore } = require('@google-cloud/datastore');
 
-// Creates a client
 const datastore = new Datastore();
+const settingKey = datastore.key(['Setting', 'Global']);
 
-async function quickstart() {
-  // The kind for the new entity
-  const kind = 'settings';
-
-  // The name/ID for the new entity
-  const name = 'timezone';
-
-  // The Cloud Datastore key for the new entity
-  const taskKey = datastore.key([kind, name]);
-
-  // Prepares the new entity
-  const task = {
-    key: taskKey,
+function saveGlobalTimezone(timezone, onSuccess, onError) {
+  datastore.save({
+    key: settingKey,
     data: {
-      description: 'Buy milk',
+      name: 'timezone',
+      value: timezone,
     },
-  };
-
-  // Saves the entity
-  await datastore.save(task);
-  console.log(`Saved ${task.key.name}: ${task.data.description}`);
+  }, (err, entity) => {
+    if (err)
+      onError(err)
+    else
+      onSuccess(entity)
+  });
 }
-quickstart();
+
+function getGlobalTimezone(onSuccess, onError) {
+  datastore.get(settingKey, (err, entity) => {
+    if (err)
+      onError(err)
+    else {
+      onSuccess(entity.value)
+    }
+  });
+}
+
+module.exports = {
+  saveGlobalTimezone,
+  getGlobalTimezone
+};

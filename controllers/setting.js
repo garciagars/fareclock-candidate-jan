@@ -1,14 +1,20 @@
 const { validationResult } = require("express-validator");
 const timezoneRule = require("../validators/settings")
 const withValidator = require("../helper/validator")
-require("../config/datastore")
+const { saveGlobalTimezone, getGlobalTimezone } = require("../config/datastore")
+const moment = require("moment-timezone")
 
 const getTimezones = (req, res) => {
-  res.json({ timezones: [] });
+  const timezones = moment.tz.names()
+  res.json({ timezones: timezones });
 };
 
 const getTimezone = (req, res) => {
-  res.json({ timezone: "UTC" });
+  getGlobalTimezone((d) => {
+    res.json({ timezone: d })
+  }, (e) => {
+    res.status(500).json({ error: 'A server error has occured, contact system admin' });
+  })
 };
 
 const updateTimezone = (req, res) => {
@@ -16,7 +22,11 @@ const updateTimezone = (req, res) => {
   if (!result.isEmpty())
     return res.status(400).json(result.array());
 
-  res.json({ timezone: req.body.timezone });
+  saveGlobalTimezone(req.body.timezone, (d) => {
+    res.json({ timezone: req.body.timezone })
+  }, (e) => {
+    res.status(500).json({ error: 'A server error has occured, contact system admin' });
+  })
 };
 
 module.exports = {
