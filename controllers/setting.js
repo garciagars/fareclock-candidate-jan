@@ -13,6 +13,7 @@ const getTimezone = (req, res) => {
   getGlobalTimezone((d) => {
     res.json({ timezone: d })
   }, (e) => {
+    console.error("Error fetching global timezone", e)
     res.status(500).json({ error: 'A server error has occured, contact system admin' });
   })
 };
@@ -25,6 +26,7 @@ const updateTimezone = (req, res) => {
   saveGlobalTimezone(req.body.timezone, (d) => {
     res.json({ timezone: req.body.timezone })
   }, (e) => {
+    console.error("Error while saving global timezone", e)
     res.status(500).json({ error: 'A server error has occured, contact system admin' });
   })
 };
