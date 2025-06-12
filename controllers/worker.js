@@ -9,7 +9,6 @@ const {
   destroyWorker,
 } = require("../datastores/worker");
 
-// GET /api/workers
 const getWorkers = (req, res) => {
   getAllWorkers(
     (workers) => res.json({ workers }),
@@ -22,7 +21,6 @@ const getWorkers = (req, res) => {
   );
 };
 
-// GET /api/workers/:id
 const getWorker = (req, res) => {
   getWorkerById(
     req.params.id,
@@ -39,7 +37,6 @@ const getWorker = (req, res) => {
   );
 };
 
-// POST /api/workers
 const newWorker = (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) return res.status(400).json(result.array());
@@ -58,7 +55,6 @@ const newWorker = (req, res) => {
   );
 };
 
-// PUT /api/workers/:id
 const updateWorker = (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) return res.status(400).json(result.array());
@@ -78,7 +74,6 @@ const updateWorker = (req, res) => {
   );
 };
 
-// DELETE /api/workers/:id
 const deleteWorker = (req, res) => {
   destroyWorker(
     req.params.id,

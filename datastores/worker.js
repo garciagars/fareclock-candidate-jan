@@ -2,7 +2,6 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 const kind = "Worker";
 
-// CREATE
 const createWorker = (name, onSuccess, onError) => {
   const key = datastore.key(kind);
   const entity = { key, data: { name } };
@@ -16,7 +15,6 @@ const createWorker = (name, onSuccess, onError) => {
   });
 };
 
-// READ ALL
 const getAllWorkers = (onSuccess, onError) => {
   const query = datastore.createQuery(kind);
   datastore.runQuery(query, (err, entities) => {
@@ -32,7 +30,6 @@ const getAllWorkers = (onSuccess, onError) => {
   });
 };
 
-// READ ONE
 const getWorkerById = (id, onSuccess, onError) => {
   const key = datastore.key([kind, datastore.int(id)]);
   datastore.get(key, (err, entity) => {
@@ -46,7 +43,6 @@ const getWorkerById = (id, onSuccess, onError) => {
   });
 };
 
-// UPDATE
 const editWorker = (id, name, onSuccess, onError) => {
   const key = datastore.key([kind, datastore.int(id)]);
   const entity = { key, data: { name } };
@@ -60,7 +56,6 @@ const editWorker = (id, name, onSuccess, onError) => {
   });
 };
 
-// DELETE
 const destroyWorker = (id, onSuccess, onError) => {
   const key = datastore.key([kind, datastore.int(id)]);
   datastore.delete(key, (err, d) => {

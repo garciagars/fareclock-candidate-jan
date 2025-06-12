@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const settingRoute = require('./routes/setting');
 const workerRoute = require('./routes/worker');
+const shiftRoute = require('./routes/shift');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/api/settings', settingRoute);
 app.use('/api/', workerRoute);
+app.use('/api/', shiftRoute);
 
 app.get('/api/health', async (req, res) => {
   res.json({
