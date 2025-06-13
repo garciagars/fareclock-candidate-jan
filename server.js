@@ -2,7 +2,10 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const allowedOrigins = ["http://localhost:8080"];
+const allowedOrigins = [
+  "http://localhost:8080",
+  "https://fareclock-fe-865387012349.europe-west1.run.app",
+];
 
 const settingRoute = require("./routes/setting");
 const workerRoute = require("./routes/worker");
